@@ -580,7 +580,108 @@ Future improvements may include:
 
 ---
 
-# 15. Conclusion
+# 15. Cryptography Implementation Architecture
+
+This section documents the implemented cryptography security engine used by the SpyChat backend.
+
+---
+
+## 15.1 Security Module Structure
+
+```text
+app/
+        security/
+                encryption/
+                        aes.py
+                hashing/
+                        sha256.py
+                key_management/
+                        keys.py
+                integrity/
+                        verify.py
+                self_destruct/
+                        engine.py
+                validators/
+                        crypto_validators.py
+                session_security/
+                        token.py
+                security_manager.py
+```
+
+---
+
+## 15.2 Module Responsibilities
+
+- encryption: AES-256-GCM encryption/decryption with nonce and tag handling.
+- hashing: SHA-256 hash generation for integrity payloads.
+- key_management: secure AES key loading from environment and safe validation.
+- integrity: hash generation and comparison for tamper detection.
+- self_destruct: expiration checks and destruction lifecycle helpers.
+- validators: base64 and length validation for ciphertext components.
+- session_security: JWT access token validation for protected routes.
+- security_manager: orchestrates encrypt, integrity hash, and decrypt workflows.
+
+---
+
+## 15.3 Implemented Cryptography Workflow
+
+```text
+User Sends Message
+                                |
+                                v
+AES-256-GCM Encrypt Message
+                                |
+                                v
+SHA-256 Hash of Encrypted Payload
+                                |
+                                v
+Store Ciphertext + Nonce + Tag + Hash
+                                |
+                                v
+Receiver Requests Message
+                                |
+                                v
+Verify Hash (Integrity Check)
+                                |
+                                v
+Decrypt Message
+                                |
+                                v
+Display Once
+                                |
+                                v
+Destroy Encrypted Payload
+```
+
+---
+
+## 15.4 Key Management Strategy
+
+- AES key is stored as a base64-encoded 32-byte secret in environment variables.
+- Keys are loaded at runtime and validated for length and encoding.
+- Key rotation is supported by updating environment secrets and restarting the service.
+
+---
+
+## 15.5 Error Handling and Security Logging
+
+- Invalid ciphertext, bad tags, or malformed base64 raise cryptographic validation errors.
+- Integrity mismatch raises an integrity failure alert and blocks decryption.
+- Decryption failures are reported without exposing plaintext details.
+- Security events are logged for monitoring and auditing.
+
+---
+
+## 15.6 Testing Recommendations
+
+- Encrypt/decrypt round-trip validation per message size.
+- Tamper detection by altering ciphertext, nonce, or tag.
+- Token validation for invalid or expired sessions.
+- Self-destruct behavior for view-once and expiry flows.
+
+---
+
+# 16. Conclusion
 
 The cryptographic design of SpyChat demonstrates the practical implementation of encryption, hashing, authentication, and temporary message lifecycle management in secure communication systems.
 
