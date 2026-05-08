@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import DateTime, ForeignKey, Integer, String
+from sqlalchemy import DateTime, ForeignKey, Index, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models import Base
@@ -8,6 +8,10 @@ from app.models import Base
 
 class Device(Base):
     __tablename__ = "devices"
+    __table_args__ = (
+        Index("ix_devices_user_id", "user_id"),
+        Index("ix_devices_fingerprint", "device_fingerprint"),
+    )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))

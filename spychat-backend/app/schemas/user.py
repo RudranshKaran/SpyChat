@@ -9,6 +9,7 @@ class UserProfile(BaseModel):
     username: str
     email: EmailStr
     created_at: datetime
+    updated_at: datetime
     last_login: datetime | None
     account_status: str
 

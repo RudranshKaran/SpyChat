@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, Text
+from sqlalchemy import Boolean, DateTime, ForeignKey, Index, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models import Base
@@ -8,6 +8,11 @@ from app.models import Base
 
 class Message(Base):
     __tablename__ = "messages"
+    __table_args__ = (
+        Index("ix_messages_sender_id", "sender_id"),
+        Index("ix_messages_receiver_id", "receiver_id"),
+        Index("ix_messages_created_at", "created_at"),
+    )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     sender_id: Mapped[int] = mapped_column(ForeignKey("users.id"))

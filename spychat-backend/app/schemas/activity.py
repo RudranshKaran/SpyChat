@@ -9,6 +9,7 @@ class ActivityLogResponse(BaseModel):
     user_id: int | None
     activity_type: str
     activity_description: str
+    metadata_json: str | None = None
     timestamp: datetime
     risk_level: str
 
