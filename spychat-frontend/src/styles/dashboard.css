@@ -1,0 +1,61 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+.dashboard-main {
+  padding: 32px;
+  display: grid;
+  gap: 24px;
+}
+
+.security-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.security-card {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: rgba(10, 14, 22, 0.7);
+  border: 1px solid rgba(57, 224, 255, 0.2);
+  display: grid;
+  gap: 8px;
+}
+
+.activity-feed {
+  display: grid;
+  gap: 12px;
+}
+
+.activity-item {
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  background: rgba(15, 22, 35, 0.7);
+  border: 1px solid rgba(57, 224, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.device-panel {
+  display: grid;
+  gap: 12px;
+}
+
+.device-card {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(57, 224, 255, 0.2);
+  background: rgba(15, 22, 35, 0.65);
+  display: grid;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}

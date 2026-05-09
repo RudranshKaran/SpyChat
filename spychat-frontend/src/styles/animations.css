@@ -1,0 +1,104 @@
+@keyframes glowPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(57, 224, 255, 0.2), 0 0 24px rgba(57, 224, 255, 0.08);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(72, 242, 169, 0.28), 0 0 38px rgba(57, 224, 255, 0.2);
+  }
+}
+
+@keyframes signalSweep {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+@keyframes securePulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes ringShrink {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 157;
+  }
+}
+
+@keyframes alertFlash {
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(255, 77, 90, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(255, 77, 90, 0.7);
+  }
+}
+
+@keyframes glitchFade {
+  0% {
+    opacity: 1;
+    filter: saturate(1.2) blur(0);
+  }
+  30% {
+    opacity: 0.8;
+    transform: translateX(-2px);
+  }
+  60% {
+    opacity: 0.5;
+    transform: translateX(3px);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-4px);
+  }
+}
+
+@keyframes liftIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-glow {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.animate-secure {
+  animation: securePulse 2.6s ease-in-out infinite;
+}
+
+.animate-alert {
+  animation: alertFlash 1.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
